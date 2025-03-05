@@ -12,13 +12,20 @@ ModelType = TypeVar("ModelType", bound=Base)
 class CRUDClient(CRUDBase[Client, ClientCreate,ClientUpdate]): 
     def get(self, db: Session):
         return db.query(Client).all()
+    
+    def get_by_id(self, db: Session, client_id: int):
+        return db.query(Client).filter(Client.id == client_id).first()
+    
+    def update(self, db: Session, db_obj: Client, obj_in: ClientUpdate):
+        obj_data = obj_in.dict(exclude_unset=True)
+        for key, value in obj_data.items():
+            setattr(db_obj, key, value)
+        db.commit()
+        db.refresh(db_obj)
+        return db_obj
+    
+    def get(self, db: Session, id: int):
+        return db.query(Client).filter(Client.id == id).first()
 
 
 client = CRUDClient(Client)
-
-
-# File "/home/harikrushn/.local/lib/python3.10/site-packages/fastapi/_compat.py", line 147, in serialize
-#     return self._type_adapter.dump_python(
-#   File "/usr/local/lib/python3.10/dist-packages/pydantic/type_adapter.py", line 333, in dump_python
-#     return self.serializer.to_python(
-# pydantic_core._pydantic_core.PydanticSerializationError: Unable to serialize unknown type: <class 'models.client.Client'>
