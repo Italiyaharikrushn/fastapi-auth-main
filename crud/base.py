@@ -35,8 +35,6 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         
     #     return db.query(self.model).filter(SubCategorys.category_id == category_id).offset(skip).limit(limit).all()    
 
-   
-    
     # def get_category_multi(
     #     self, db: Session, *, skip: int = 0, limit: int = 100,
     # ) -> List[ModelType]:
@@ -87,9 +85,3 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         db.commit()
         return obj
     
-
-
-
-
-
-

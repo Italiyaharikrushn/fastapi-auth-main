@@ -7,7 +7,6 @@ import crud
 from db.database import SessionLocal
 from services.user_service import decode_access_token, get_user_by_email_active
 
-
 class AuthMiddleWare(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
         if is_unauthorized_url(request):

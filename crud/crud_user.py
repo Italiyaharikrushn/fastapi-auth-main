@@ -9,7 +9,6 @@ from db.base_class import Base
 from schemas.user import UserCreate, UserUpdate
 ModelType = TypeVar("ModelType", bound=Base)
 
-
 class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
     def get(self, db: Session, id: Any) -> Optional[User]:
         return db.query(User).filter(User.id == id).first()
@@ -78,6 +77,5 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
     #     user = db.query(User.id, User.first_name, User.last_name, User.email, User.phone, User.skill, User.addr, User.city, User.state, User.english_proficiency, User.last_education, User.document_id, Document.static_file_path).join(
     #         User, Document.id == User.document_id).filter(User.skill.any(skill),User.status == 1).all()
     #     return user
-
 
 user = CRUDUser(User)

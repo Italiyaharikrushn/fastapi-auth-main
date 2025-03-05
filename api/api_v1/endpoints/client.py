@@ -52,6 +52,7 @@ def delete_user(client_id: int, db: Session = Depends(dependencies.get_db)):
 
     return "User Deleted successfully"
 
+# update data PUT
 @router.put("/update/{client_id}", status_code=200)
 def update_user(client_id: int, user_update: ClientUpdate, db: Session = Depends(get_db)):
     client = crud.client.get_by_id(db=db, client_id=client_id)

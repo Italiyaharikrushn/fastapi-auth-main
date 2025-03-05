@@ -13,14 +13,12 @@ password_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 reusable_oauth2 = HTTPBearer(scheme_name="Authorization")
 PREFIX = "Bearer"
 
-
 def verify_password(plain_password, hashed_password):
     return password_context.verify(plain_password, hashed_password)
 
 
 def get_password_hash(password: str) -> str:
     return password_context.hash(password)
-
 
 def create_access_token(claim: dict, expires_delta: Optional[timedelta] = None):
     to_encode = claim.copy()
@@ -32,7 +30,6 @@ def create_access_token(claim: dict, expires_delta: Optional[timedelta] = None):
     jwt_token = jwt.encode(to_encode, settings.SECRET_KEY, settings.ALGORITHM)
     return jwt_token
 
-
 def decode_access_token(token):
     payload = None
     try:
@@ -41,7 +38,6 @@ def decode_access_token(token):
     except Exception as e:
         print("Problem with token decode => ", str(e))
     return payload
-
 
 def is_unauthorized_url(request: Request):
     allow_urls = [
@@ -60,7 +56,6 @@ def is_unauthorized_url(request: Request):
     if current_url in allow_urls:
         return True
     return False
-
 
 def get_token(header):
     bearer, _, token = header.partition(" ")

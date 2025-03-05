@@ -27,5 +27,4 @@ class CRUDClient(CRUDBase[Client, ClientCreate,ClientUpdate]):
     def get(self, db: Session, id: int):
         return db.query(Client).filter(Client.id == id).first()
 
-
 client = CRUDClient(Client)

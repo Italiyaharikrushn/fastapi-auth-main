@@ -6,7 +6,6 @@ f = open("./db/modules.json")
 response =  json.load(f)
 data = response['module_list']
 
-
 for header in data:
     header["module_name"]
     header["display_name"]

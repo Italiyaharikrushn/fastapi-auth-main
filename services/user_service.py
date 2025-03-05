@@ -10,10 +10,8 @@ from jose import jwt
 
 PREFIX = "Bearer"
 
-
 def get_user_by_email(db: Session, email: str):
     return db.query(User).filter(User.email == email).all()
-
 
 def create_user(db: Session, register_schema: RegisterSchema):
     password_hash = get_password_hash(register_schema.password)
@@ -32,13 +30,10 @@ def create_user(db: Session, register_schema: RegisterSchema):
     db.refresh(user)
     return user
 
-
 def get_user_by_email_active(db: Session, email: str):
     return db.query(User).filter(User.email == email).all()
 
-
 def create_access_token(claim: dict, expires_delta: Optional[timedelta] = None):
-
     to_encode = claim.copy()
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
@@ -47,7 +42,6 @@ def create_access_token(claim: dict, expires_delta: Optional[timedelta] = None):
     to_encode.update({"exp": expire})
     jwt_token = jwt.encode(to_encode, settings.SECRET_KEY, settings.ALGORITHM)
     return jwt_token
-
 
 def decode_access_token(token):
     payload = None
@@ -63,7 +57,6 @@ def decode_access_token(token):
             del e
 
     return payload
-
 
 def get_token(header):
     bearer, _, token = header.partition(" ")

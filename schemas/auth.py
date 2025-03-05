@@ -4,7 +4,6 @@ class LoginSchema(BaseModel):
     email: str
     password: str
 
-
 class RegisterSchema(LoginSchema):
     first_name: str
     last_name: str

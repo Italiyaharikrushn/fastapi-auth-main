@@ -8,7 +8,6 @@ from services.user_service import create_access_token, create_user, get_user_by_
 from core.config import settings
 router = APIRouter()
 
-
 @router.post('/login', status_code=(status.HTTP_201_CREATED))
 def login(login_schema: LoginSchema, db: Session = Depends(get_db)):
     """
@@ -36,7 +35,6 @@ def login(login_schema: LoginSchema, db: Session = Depends(get_db)):
     token = create_access_token(claim, expires_delta=timedelta(
         minutes=(settings.ACCESS_TOKEN_EXPIRE_MINUTES)))
     return {'token': token}
-
 
 @router.post('/register', response_model=RegisterSchema, response_model_exclude={'password'}, status_code=(status.HTTP_201_CREATED))
 def register(register_schema: RegisterSchema, db: Session = Depends(get_db)):
